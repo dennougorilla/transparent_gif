@@ -1,7 +1,11 @@
-<h1>My First AngularDart App</h1>
+<h1>Transparent Gif Generator
+(<a href="https://github.com/dennougorilla/transparent_gif">github</a>)
+</h1>
 
-<body>
-    <input id="loadFile" type="file">
-    <canvas id="canvas"></canvas>
-    <button id="saveButton">save</button>
-</body>
+<input id="loadFile" type="file">
+<canvas id="canvas"></canvas>
+<material-slider [min]="minDistance" [(max)]="maxDistance" [(value)]="distance" [disabled]="false"></material-slider>
+<p>Value: {{distance}}</p>
+<button id="saveButton">save</button>
+<footer>
+</footer>
