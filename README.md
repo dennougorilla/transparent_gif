@@ -1,4 +1,5 @@
 # transparent_gif
+![img](https://github.com/dennougorilla/transparent_gif/blob/master/usage.gif)
 
 A web app that uses [AngularDart](https://webdev.dartlang.org/angular) and
 [AngularDart Components](https://webdev.dartlang.org/components).
