@@ -25,9 +25,9 @@ class AppComponent implements AfterViewInit {
   int minDistance = 1;
   int maxDistance = 200;
   int distance = 1;
+  int delay = 0;
   @override
   void ngAfterViewInit() async {
-    var colorList = [];
     Animation gifAnimation;
     InputElement input = querySelector('#loadFile');
     input.onChange.listen((changeData) {
@@ -35,15 +35,18 @@ class AppComponent implements AfterViewInit {
       var reader = FileReader();
       reader.readAsArrayBuffer(file);
       reader.onLoad.listen((fileEvent) {
+
+        delay = GifDecoder().startDecode(reader.result).frames.first.duration * 10;
+
         gifAnimation = decodeGifAnimation(reader.result);
-        var image = gifAnimation[0];
+        var image = gifAnimation.first;
 
         CanvasElement canvas = querySelector('#canvas');
         canvas.width = image.width;
         canvas.height = image.height;
 
         var index = 0;
-        Timer.periodic(const Duration(milliseconds: 33), (Timer t) {
+        Timer.periodic(Duration(milliseconds: delay), (Timer t) {
           if (0 <= index && index < gifAnimation.length) {
             var imageData = canvas.context2D.createImageData(
                 gifAnimation[index].width, gifAnimation[index].height);
@@ -104,7 +107,7 @@ class AppComponent implements AfterViewInit {
             canvas.context2D.createImageData(image.width, image.height);
         imageData.data.setRange(0, imageData.data.length, image.getBytes());
         canvas.context2D.putImageData(imageData, 0, 0);
-        gif.addFrame(canvas, AddFrameOptions(delay: 33, copy: true));
+        gif.addFrame(canvas, AddFrameOptions(delay: delay, copy: true));
       }
       gif.on('finished', allowInterop((blob, tmp) {
         window.open(Url.createObjectUrl(blob), 'gif');
