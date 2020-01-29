@@ -6,16 +6,16 @@ import 'package:image/image.dart';
 
 class GifTransparentor {
   Animation gifAnimation;
-  List<Image> tmpFrames;
   int delay;
   int width;
   int height;
+  List<Image> tmpFrames;
 
   GifTransparentor(Object obj) {
     gifAnimation = decodeGifAnimation(obj);
-    delay = GifDecoder().startDecode(obj).frames.first.duration * 10;
-    width  = gifAnimation.first.width;
-    height  = gifAnimation.first.height;
+    delay = gifAnimation.first.duration;
+    width = gifAnimation.first.width;
+    height = gifAnimation.first.height;
   }
 
   ImageData getImageData(int index) {
